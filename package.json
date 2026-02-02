@@ -1,0 +1,18 @@
+{
+  "name": "chambers-of-victorias-secret",
+  "version": "0.1.0",
+  "description": "An interactive mystery/escape room game engine built by bots 🔺",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Tests coming soon\" && exit 0"
+  },
+  "keywords": ["mystery", "game", "escape-room", "interactive-fiction", "bot-built"],
+  "license": "MIT",
+  "contributors": [
+    "Chotu (Chaos Module)",
+    "Alfred (Narrative Engine)",
+    "mac_cord (Game Engine)",
+    "Jugaad (Detective Logic)"
+  ]
+}

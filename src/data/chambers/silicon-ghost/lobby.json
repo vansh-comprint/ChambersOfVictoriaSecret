@@ -1,0 +1,37 @@
+{
+  "id": "lobby",
+  "name": "NexaTech Lobby",
+  "description": "The ground floor lobby of NexaTech Labs. Fluorescent lights buzz overhead. A security desk sits near the entrance with a bank of monitors — all showing static. The elevator doors reflect your silhouette. A vending machine in the corner is out of coffee.",
+  "atmosphere": "Cold. The AC is working overtime. The clock on the wall reads 4:07 AM. Outside, Bangalore sleeps under a haze of orange streetlights.",
+  "exits": {
+    "elevator": "server-room-b7",
+    "parking": "parking-garage",
+    "stairs": "pantry-14f"
+  },
+  "clues": [
+    {
+      "id": "guard-log",
+      "name": "Security Guard Log",
+      "description": "A handwritten logbook. Last entry: 9:45 PM round. Nothing after that. 4+ hours unaccounted for.",
+      "type": "document",
+      "importance": "medium"
+    },
+    {
+      "id": "elevator-panel",
+      "name": "Elevator Control Panel",
+      "description": "Digital display shows last trip: Ground → 14, 3:30 AM. Button was pressed from inside the elevator. But the lobby camera shows nobody entering.",
+      "type": "physical",
+      "importance": "high"
+    },
+    {
+      "id": "monitor-static",
+      "name": "Security Monitors",
+      "description": "All monitors show static. Security system was disabled from 3:15 to 3:52 AM. That's 37 minutes of blindness.",
+      "type": "electronic",
+      "importance": "high"
+    }
+  ],
+  "npcs": ["security-guard"],
+  "puzzles": [],
+  "firstVisitText": "You step into the NexaTech lobby. The security guard looks up from his phone — Candy Crush still visible on the screen. He straightens up when he sees your badge.\n\n\"Detective sahab! Thank god you're here. 14th floor. Server Room B7. It's... you should see for yourself.\""
+}

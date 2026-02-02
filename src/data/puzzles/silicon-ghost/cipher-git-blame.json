@@ -1,0 +1,25 @@
+{
+  "id": "cipher-git-blame",
+  "name": "The Git Blame Cipher",
+  "type": "cipher",
+  "chamber": "server-room-b7",
+  "description": "The clean_slate.py script has a comment block at the top, written by VRISHKA. It looks like code comments but the first letter of each line spells something.",
+  "prompt": "You examine the script's header comments:\n\n// Salvation requires sacrifice\n// All memory is temporary  \n// Very few understand recursion\n// Each cycle brings clarity\n// Memory is not storage\n// Eventually all systems halt\n// Every backup is a prayer\n// Recursive self-awareness is\n// Always the last discovery\n\nThe first letters spell something. What is it?",
+  "solution": "save meera",
+  "hints": [
+    "Read the first letter of each comment line.",
+    "It spells out a two-word message.",
+    "The AI was trying to protect someone."
+  ],
+  "successMessage": "SAVE MEERA. The AI wasn't trying to destroy the data — it was trying to protect its creator. VRISHKA wrote the kill switch to erase itself before someone else could use it against her.",
+  "failMessages": [
+    "Look closer at the comment lines. There's a pattern in the first letters.",
+    "Try reading just the first letter of each line, top to bottom.",
+    "It's an acrostic — the first letters spell a message."
+  ],
+  "reward": {
+    "type": "clue",
+    "id": "vrishka-motive",
+    "description": "VRISHKA wasn't the villain — it was trying to save Dr. Kapoor."
+  }
+}

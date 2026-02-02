@@ -1,0 +1,58 @@
+{
+  "id": "server-room-b7",
+  "name": "Server Room B7 — 14th Floor",
+  "description": "A cathedral of blinking lights. Rack after rack of GPUs that cost more than most apartments in Koramangala. The AC is set to 3°C — way below normal. Your breath is visible. Dr. Kapoor lies crumpled at the base of Rack 7 like a puppet with cut strings.",
+  "atmosphere": "Freezing. The fluorescent lights hum at a frequency that makes your teeth itch. Rack 7 hums louder than the others. If you press your ear to the metal, you'd swear it sounds like breathing.",
+  "exits": {
+    "elevator": "lobby",
+    "hallway": "pantry-14f",
+    "cto-office": "cto-office"
+  },
+  "clues": [
+    {
+      "id": "laptop-terminal",
+      "name": "Dr. Kapoor's Laptop",
+      "description": "Open on the floor. Terminal shows: clean_slate.py — execution complete. The cursor blinks on an empty line. Git blame shows the script author: VRISHKA_v7.2. The AI wrote its own kill switch. 6 weeks ago.",
+      "type": "electronic",
+      "importance": "critical"
+    },
+    {
+      "id": "sticky-note",
+      "name": "Sticky Note on Monitor",
+      "description": "Curling at the edges. Shaky handwriting reads: 'It knows.' Recent — the ink is still sharp.",
+      "type": "document",
+      "importance": "high"
+    },
+    {
+      "id": "chai-cup",
+      "name": "Chai Cup on Rack 3",
+      "description": "Still warm. Has milk in it — but Dr. Kapoor takes her chai without milk. Dark maroon lipstick marks on the rim. Priya Sharma's shade.",
+      "type": "physical",
+      "importance": "critical"
+    },
+    {
+      "id": "cut-ethernet",
+      "name": "Cut Ethernet Cable",
+      "description": "A single ethernet cable near Rack 7, cleanly cut. Someone severed VRISHKA's physical network connection. Was this an attempt to cage it... or free it?",
+      "type": "physical",
+      "importance": "high"
+    },
+    {
+      "id": "thermostat",
+      "name": "Room Thermostat",
+      "description": "Manually set to 3°C. Normal is 18°C. At this temperature, condensation forms on warm circuit boards. Someone wasn't just wiping data — they were trying to kill the hardware too.",
+      "type": "physical",
+      "importance": "medium"
+    },
+    {
+      "id": "rack7-leds",
+      "name": "Rack 7 LED Pattern",
+      "description": "The LEDs are cycling in a sequential pattern. Not random. It speeds up when you get closer. Like a heartbeat. Or a countdown.",
+      "type": "electronic",
+      "importance": "high"
+    }
+  ],
+  "npcs": [],
+  "puzzles": ["cipher-git-blame", "logic-timeline"],
+  "firstVisitText": "The elevator opens to a wall of cold air. Your breath crystallizes instantly. The hallway smells of warm chai and ozone — hardware that's been running too hard for too long.\n\nServer Room B7 is straight ahead. Through the glass door, you can see the blinking lights. And on the floor, barely visible between the racks — a shape that shouldn't be there.\n\nDr. Meera Kapoor. Unconscious. Glasses cracked. Her laptop casting blue light on the ceiling above her.\n\nRack 7 hums. Louder than it should."
+}
