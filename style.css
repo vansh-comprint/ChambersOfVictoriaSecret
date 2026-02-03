@@ -1,0 +1,539 @@
+/* 🏰 Chambers of Victoria's Secret — Dark Dungeon Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Inter:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-panel: #12121f;
+  --bg-panel-alt: #181830;
+  --border: #2a2a4a;
+  --text: #d0d0e0;
+  --text-dim: #707090;
+  --gold: #ffd700;
+  --red: #ff4444;
+  --green: #44ff44;
+  --blue: #44aaff;
+  --purple: #aa44ff;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ===== LAYOUT ===== */
+#game-container {
+  display: grid;
+  grid-template-columns: 260px 1fr 240px;
+  grid-template-rows: 1fr;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ===== LEFT PANEL ===== */
+#left-panel {
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.panel-title {
+  font-family: 'MedievalSharp', cursive;
+  color: var(--gold);
+  font-size: 18px;
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Player Info */
+#player-info {
+  background: var(--bg-panel-alt);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+#player-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.stat-label {
+  color: var(--text-dim);
+}
+
+.health-bar {
+  width: 100%;
+  height: 8px;
+  background: #1a1a2e;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 6px 0;
+}
+
+.health-bar-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 4px;
+  transition: width 0.3s, background 0.3s;
+}
+
+/* Inventory */
+#inventory {
+  background: var(--bg-panel-alt);
+  border-radius: 8px;
+  padding: 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+#inventory h3 {
+  font-size: 14px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+#inventory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inv-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+  font-size: 12px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.inv-item.usable {
+  cursor: pointer;
+  border-color: rgba(255,215,0,0.15);
+}
+
+.inv-item.usable:hover {
+  background: rgba(255,215,0,0.1);
+  border-color: var(--gold);
+}
+
+.inv-icon {
+  font-size: 18px;
+}
+
+.inv-empty {
+  color: var(--text-dim);
+  font-size: 12px;
+  text-align: center;
+  padding: 16px 0;
+}
+
+/* Chamber Info */
+#chamber-info {
+  background: var(--bg-panel-alt);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+}
+
+.chamber-type {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.chamber-desc {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.chamber-pos {
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+/* ===== CENTER — CANVAS ===== */
+#canvas-container {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Turn indicator overlay */
+#turn-overlay {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 10, 15, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  pointer-events: none;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+}
+
+#turn-info {
+  white-space: nowrap;
+}
+
+/* ===== RIGHT PANEL ===== */
+#right-panel {
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+/* Player Indicators */
+#player-indicators {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.player-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 6px;
+  font-size: 12px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.player-indicator.active {
+  border-color: var(--gold);
+  background: rgba(255,215,0,0.05);
+}
+
+.player-indicator.dead {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.indicator-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.indicator-health {
+  color: var(--green);
+  font-size: 11px;
+}
+
+.indicator-gold {
+  color: var(--gold);
+  font-size: 11px;
+}
+
+/* Minimap */
+#minimap-container {
+  background: var(--bg-panel-alt);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+#minimap-container h3 {
+  font-size: 14px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+#minimap {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  image-rendering: pixelated;
+  width: 100%;
+}
+
+/* Game Log */
+#log-container {
+  background: var(--bg-panel-alt);
+  border-radius: 8px;
+  padding: 12px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#log-container h3 {
+  font-size: 14px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+#game-log {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+  min-height: 0;
+}
+
+.log-entry {
+  padding: 3px 6px;
+  border-radius: 4px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.log-system { color: var(--gold); background: rgba(255,215,0,0.05); }
+.log-info { color: var(--text-dim); }
+.log-success { color: var(--green); }
+.log-danger { color: var(--red); }
+.log-warning { color: #ffaa44; }
+.log-combat { color: #ff6666; background: rgba(255,0,0,0.05); }
+.log-npc { color: var(--blue); }
+
+/* ===== PUZZLE MODAL ===== */
+#puzzle-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(4px);
+}
+
+#puzzle-modal.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.puzzle-box {
+  background: var(--bg-panel);
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 520px;
+  width: 90%;
+  text-align: center;
+}
+
+.puzzle-box h2 {
+  font-family: 'MedievalSharp', cursive;
+  color: var(--gold);
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+#puzzle-text {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+  color: var(--text);
+}
+
+#puzzle-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 12px;
+}
+
+#puzzle-input:focus {
+  border-color: var(--gold);
+}
+
+.puzzle-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #000;
+}
+
+.btn-primary:hover {
+  background: #ffe033;
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background: var(--bg-panel-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
+
+#puzzle-hint {
+  margin-top: 12px;
+  color: var(--blue);
+  font-size: 13px;
+  font-style: italic;
+  min-height: 20px;
+}
+
+/* ===== GAME OVER MODAL ===== */
+#gameover-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(6px);
+}
+
+#gameover-modal.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.gameover-box {
+  background: var(--bg-panel);
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+}
+
+.gameover-box h2 {
+  font-family: 'MedievalSharp', cursive;
+  color: var(--gold);
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.scoreboard {
+  margin: 20px 0;
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin: 4px 0;
+  border-radius: 6px;
+  font-size: 13px;
+  background: rgba(255,255,255,0.02);
+}
+
+.score-row.winner {
+  background: rgba(255,215,0,0.1);
+  border: 1px solid var(--gold);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a5a;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  #game-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  #left-panel, #right-panel {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 160px;
+    overflow-x: auto;
+  }
+}

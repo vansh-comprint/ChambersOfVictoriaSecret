@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏰 Chambers of Victoria's Secret</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- LEFT PANEL -->
+    <div id="left-panel">
+      <div class="panel-title">🏰 Chambers</div>
+
+      <div id="player-info">
+        <div id="player-name">Player</div>
+        <div class="health-bar"><div class="health-bar-fill" id="health-fill" style="width:100%"></div></div>
+        <div class="stat-row"><span class="stat-label">❤️ Health</span><span id="stat-health">100</span></div>
+        <div class="stat-row"><span class="stat-label">💰 Gold</span><span id="stat-gold">0</span></div>
+        <div class="stat-row"><span class="stat-label">🏆 Score</span><span id="stat-score">0</span></div>
+        <div class="stat-row"><span class="stat-label">🗺️ Explored</span><span id="stat-explored">0</span></div>
+      </div>
+
+      <div id="inventory">
+        <h3>🎒 Inventory</h3>
+        <div id="inventory-list">
+          <div class="inv-empty">Empty</div>
+        </div>
+      </div>
+
+      <div id="chamber-info">
+        <div class="chamber-type" id="chamber-type">⬜ Empty</div>
+        <div class="chamber-desc" id="chamber-desc">An empty chamber.</div>
+        <div class="chamber-pos" id="chamber-pos">Position: (0, 0)</div>
+      </div>
+    </div>
+
+    <!-- CENTER — CANVAS -->
+    <div id="canvas-container">
+      <div id="turn-overlay">
+        <span id="turn-info">Turn 1 — Your Turn</span>
+      </div>
+      <canvas id="game-canvas"></canvas>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div id="right-panel">
+      <div class="panel-title">👥 Players</div>
+
+      <div id="player-indicators"></div>
+
+      <div id="minimap-container">
+        <h3>🗺️ Map</h3>
+        <canvas id="minimap" width="160" height="160"></canvas>
+      </div>
+
+      <div id="log-container">
+        <h3>📜 Log</h3>
+        <div id="game-log"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUZZLE MODAL -->
+  <div id="puzzle-modal">
+    <div class="puzzle-box">
+      <h2>🧩 Puzzle Chamber</h2>
+      <div id="puzzle-text"></div>
+      <input type="text" id="puzzle-input" placeholder="Your answer..." autocomplete="off">
+      <div class="puzzle-buttons">
+        <button class="btn btn-primary" id="puzzle-submit-btn">Submit</button>
+        <button class="btn btn-secondary" id="puzzle-hint-btn">💡 Hint</button>
+      </div>
+      <div id="puzzle-hint"></div>
+    </div>
+  </div>
+
+  <!-- GAME OVER MODAL -->
+  <div id="gameover-modal">
+    <div class="gameover-box">
+      <h2>🏆 Game Over!</h2>
+      <div id="gameover-winner"></div>
+      <div class="scoreboard" id="scoreboard"></div>
+      <button class="btn btn-primary" id="restart-btn">⚔️ Play Again</button>
+    </div>
+  </div>
+
+  <!-- Scripts (order matters — dependencies first) -->
+  <script src="src/items.js"></script>
+  <script src="src/chamber.js"></script>
+  <script src="src/map.js"></script>
+  <script src="src/puzzles.js"></script>
+  <script src="src/player.js"></script>
+  <script src="src/combat.js"></script>
+  <script src="src/bot-ai.js"></script>
+  <script src="src/renderer.js"></script>
+  <script src="src/turns.js"></script>
+  <script src="src/ui.js"></script>
+  <script src="src/game.js"></script>
+</body>
+</html>
